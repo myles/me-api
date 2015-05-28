@@ -28,7 +28,10 @@ def index():
     for m in modules:
         data['routes'] += ["/" + m.get('path'),]
     
-    return jsonify(data)
+    res = jsonify(data)
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    
+    return res
 
 
 @app.route('/<path>')
@@ -47,7 +50,10 @@ def module(path):
     
     data = middleware.main(module.get('data', None))
     
-    return jsonify(data)
+    res = jsonify(data)
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    
+    return res
 
 
 @app.route('/<file_name>.txt')
@@ -58,7 +64,10 @@ def send_text_file(file_name):
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return jsonify(status=404, error='not_found'), 404
+    res = jsonify(status=404, error='not_found')
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    
+    return res, 404
 
 
 if __name__ == "__main__":
