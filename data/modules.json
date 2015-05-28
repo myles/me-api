@@ -1,0 +1,19 @@
+{
+  "settings": {
+    "host": "127.0.0.1:5000"
+  },
+  "modules": [
+    {
+      "type": "blog_rss",
+      "path": "blog",
+      "data": {
+        "rss_feed": "http://mylesbraithwaite.com/feeds/"
+      }
+    },
+    {
+      "type": "twitter",
+      "path": "twitter",
+      "data": {}
+    }
+  ]
+}
