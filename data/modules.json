@@ -4,7 +4,7 @@
   },
   "modules": [
     {
-      "type": "blog_rss",
+      "type": "feed",
       "path": "blog",
       "data": {
         "rss_feed": "http://mylesbraithwaite.com/feeds/"
@@ -12,8 +12,11 @@
     },
     {
       "type": "twitter",
-      "path": "twitter",
-      "data": {}
+      "path": "twitter"
+    },
+    {
+      "type": "foursq",
+      "path": "foursquare"
     }
   ]
 }

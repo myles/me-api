@@ -5,7 +5,7 @@ from flask import Flask, json, jsonify, abort
 
 from utils import CustomJSONEncoder
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 app.json_encoder = CustomJSONEncoder
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -48,7 +48,7 @@ def module(path):
     
     middleware = importlib.import_module("middleware." + module['type'])
     
-    data = middleware.main(module.get('data', None))
+    data = middleware.main(app, module.get('data', {}))
     
     res = jsonify(data)
     res.headers['Access-Control-Allow-Origin'] = '*'

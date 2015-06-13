@@ -1,5 +1,6 @@
 feedparser==5.1.3
 Flask==0.10.1
+foursquare==1!2015.5.26
 gunicorn==19.3.0
 itsdangerous==0.24
 oauthlib==0.7.2
