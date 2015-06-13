@@ -5,11 +5,13 @@ from flask import Flask, json, jsonify, abort
 
 from utils import CustomJSONEncoder
 
-app = Flask(__name__, instance_relative_config=True)
-app.json_encoder = CustomJSONEncoder
-
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 APP_DATA = os.path.join(APP_ROOT, 'data')
+
+app = Flask(__name__, instance_relative_config=True)
+app.json_encoder = CustomJSONEncoder
+app.template_folder = os.path.join(APP_ROOT, 'templates')
+
 
 @app.route('/')
 def index():
@@ -34,7 +36,12 @@ def index():
     return res
 
 
-@app.route('/<path>')
+@app.route('/<string:filename>.txt')
+def send_text_file(filename):
+    return app.send_static_file(filename + '.txt')
+
+
+@app.route('/<string:path>')
 def module(path):
     with open(os.path.join(APP_DATA, 'modules.json'), 'r') as f:
         modules = json.loads(f.read())['modules']
@@ -46,7 +53,7 @@ def module(path):
     if not module:
         abort(404)
     
-    middleware = importlib.import_module("middleware." + module['type'])
+    middleware = importlib.import_module("middleware.module_" + module['type'])
     
     data = middleware.main(app, module.get('data', {}))
     
@@ -54,12 +61,6 @@ def module(path):
     res.headers['Access-Control-Allow-Origin'] = '*'
     
     return res
-
-
-@app.route('/<file_name>.txt')
-def send_text_file(file_name):
-    file_dot_text = file_name + '.txt'
-    return app.send_static_file(file_dot_text)
 
 
 @app.errorhandler(404)
