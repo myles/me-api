@@ -17,6 +17,10 @@
     {
       "type": "foursquare",
       "path": "foursquare"
+    },
+    {
+      "type": "instagram",
+      "path": "instagram"
     }
   ]
 }
