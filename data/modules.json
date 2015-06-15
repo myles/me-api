@@ -25,6 +25,13 @@
     {
       "type": "resume",
       "path": "resume"
+    },
+    {
+      "type": "tumblr",
+      "path": "tumblr",
+      "data": {
+        "tumblr_url": "http://tumblr.mylesbraithwaite.com/"
+      }
     }
   ]
 }
