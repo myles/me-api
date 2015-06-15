@@ -2,6 +2,7 @@ import os
 import importlib
 
 from flask import Flask, json, jsonify, abort
+from flask.ext.cache import Cache
 
 from utils import CustomJSONEncoder
 
@@ -12,6 +13,8 @@ app.data_dir = os.path.join(app.root_dir, 'data')
 
 app.json_encoder = CustomJSONEncoder
 app.template_folder = os.path.join(app.root_dir, 'templates')
+
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 
 @app.route('/')
@@ -43,6 +46,7 @@ def send_text_file(filename):
 
 
 @app.route('/<string:path>')
+@cache.cached(timeout=60*60*60)
 def module(path):
     with open(os.path.join(app.data_dir, 'modules.json'), 'r') as f:
         modules = json.loads(f.read())['modules']
