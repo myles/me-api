@@ -2,7 +2,7 @@
   position: President
   website: http://monkeyinyoursoul.com/
   startDate: 2006-02-01
-  # endDate:
+  endDate:
   summary: Monkey in your Soul is my web and open source consulting company located in Toronto.
   highlights:
     - "Started my own consulting company."
