@@ -1,0 +1,39 @@
+- name: Web Development
+  level: Working Knowledge
+  keywords:
+    - HTML
+    - CSS
+    - JavaScript
+    - LessCSS
+    - SASS
+- name: Programming
+  level: Working Knowledge
+  keywords:
+    - Python
+    - Ruby
+    - Java
+    - Swift
+    - Go
+    - Node.js
+- name: Frameworks
+  level: Working Knowledge
+  keywords:
+    - Flask
+    - Django
+    - Jekyll
+    - Ruby on Rails
+- name: Databases
+  level: Working Knowledge
+  keywords:
+    - PostgreSQL
+    - MySQL
+    - SQLite
+- name: Graphic Design
+  level: Basic Knowledge
+  keywords:
+    - Adobe Photoshop
+    - Adobe Illustrator
+    - Adobe Lightroom
+    - Sketch
+    - OmniGraffle
+    - PixelMator

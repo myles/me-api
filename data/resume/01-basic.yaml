@@ -1,0 +1,26 @@
+name: Myles Braithwaite
+label: Web Developer
+# TODO picture: 
+email: me@mylesbraithwaite.com
+# TODO phone: 
+website: "http://mylesb.ca/"
+# TODO summary: 
+location:
+  address: 906-2235 Sheppard Ave. East
+  postalCode: M2J 5B5
+  city: Toronto
+  countryCode: "CA"
+  region: "Ontario"
+profile:
+- network: Twitter
+  username: mylesb
+  url: https://twitter.com/mylesb
+- network: GitHub
+  username: myles
+  url: https://github.com/myles
+- network: Google+
+  username: MylesBraithwaite
+  url: https://plus.google.com/+MylesBraithwaite
+- network: LinkedIn
+  username: mylesbraithwaite
+  url: https://www.linkedin.com/in/mylesbraithwaite

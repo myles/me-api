@@ -21,6 +21,10 @@
     {
       "type": "instagram",
       "path": "instagram"
+    },
+    {
+      "type": "resume",
+      "path": "resume"
     }
   ]
 }
