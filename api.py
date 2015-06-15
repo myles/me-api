@@ -5,22 +5,23 @@ from flask import Flask, json, jsonify, abort
 
 from utils import CustomJSONEncoder
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-APP_DATA = os.path.join(APP_ROOT, 'data')
-
 app = Flask(__name__, instance_relative_config=True)
+
+app.root_dir = os.path.dirname(os.path.abspath(__file__))
+app.data_dir = os.path.join(app.root_dir, 'data')
+
 app.json_encoder = CustomJSONEncoder
-app.template_folder = os.path.join(APP_ROOT, 'templates')
+app.template_folder = os.path.join(app.root_dir, 'templates')
 
 
 @app.route('/')
 def index():
     data = {}
     
-    with open(os.path.join(APP_DATA, 'me.json'), 'r') as f:
+    with open(os.path.join(app.data_dir, 'me.json'), 'r') as f:
         data['me'] = json.loads(f.read())
     
-    with open(os.path.join(APP_DATA, 'modules.json'), 'r') as f:
+    with open(os.path.join(app.data_dir, 'modules.json'), 'r') as f:
         settings = json.loads(f.read())
     
     modules = settings.get('modules', None)
@@ -43,8 +44,10 @@ def send_text_file(filename):
 
 @app.route('/<string:path>')
 def module(path):
-    with open(os.path.join(APP_DATA, 'modules.json'), 'r') as f:
+    with open(os.path.join(app.data_dir, 'modules.json'), 'r') as f:
         modules = json.loads(f.read())['modules']
+    
+    module = None
     
     for i, dic in enumerate(modules):
         if dic['path'] == path:
