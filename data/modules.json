@@ -32,6 +32,20 @@
       "data": {
         "tumblr_url": "http://tumblr.mylesbraithwaite.com/"
       }
+    },
+    {
+      "type": "keybase",
+      "path": "keybase",
+      "data": {
+        "username": "myles"
+      }
+    },
+    {
+      "type": "github",
+      "path": "github",
+      "data": {
+        "username": "myles"
+      }
     }
   ]
 }

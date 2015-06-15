@@ -1,4 +1,11 @@
 {
   "name": "Myles Braithwaite",
-  "bio": "Hoping for the Best, Imagining the Worst."
+  "bio": "Hoping for the Best, Imagining the Worst.",
+  "contact": {
+    "email": "me@mylesbraithwaite.com",
+    "facebook": "https://www.facebook.com/mylesbraithwaite",
+    "twitter": "https://twitter.com/mylesb",
+    "github": "https://github.com/myles",
+    "linkedin": "https://www.linkedin.com/in/mylesbraithwaite"
+  }
 }

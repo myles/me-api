@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-from os import environ
 from urlparse import urljoin
 
 import requests
