@@ -1,7 +1,7 @@
 import os
 import importlib
 
-from flask import Flask, json, jsonify, abort
+from flask import Flask, json, jsonify, abort, request
 from flask.ext.cache import Cache
 
 from utils import CustomJSONEncoder
@@ -12,7 +12,7 @@ app.root_dir = os.path.dirname(os.path.abspath(__file__))
 app.data_dir = os.path.join(app.root_dir, 'data')
 
 app.json_encoder = CustomJSONEncoder
-app.template_folder = os.path.join(app.root_dir, 'templates')
+app.static_url_path = os.path.join(app.root_dir, 'templates')
 
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
@@ -42,9 +42,9 @@ def index():
     return res
 
 
-@app.route('/<string:filename>.txt')
-def send_text_file(filename):
-    return app.send_static_file(filename + '.txt')
+@app.route('/robots.txt')
+def send_text_file():
+    return app.send_static_file(request.path[1:])
 
 
 @app.route('/<string:path>')
