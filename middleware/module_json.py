@@ -5,6 +5,6 @@ from urlparse import urljoin
 import requests
 
 def main(app, data):
-    r = requests.get(urljoin(data.get('tumblr_url'), '/api/read/json?debug=1'))
+    r = requests.get(data.get('api_url'))
     
     return r.json()

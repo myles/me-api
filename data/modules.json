@@ -27,10 +27,17 @@
       "path": "resume"
     },
     {
-      "type": "tumblr",
+      "type": "json",
       "path": "tumblr",
       "data": {
-        "tumblr_url": "http://tumblr.mylesbraithwaite.com/"
+        "api_url": "http://tumblr.mylesbraithwaite.com/api/read/json?debug=1"
+      }
+    },
+    {
+      "type": "json",
+      "path": "ello",
+      "data": {
+        "api_url": "https://ello.co/mylesb.json"
       }
     },
     {
