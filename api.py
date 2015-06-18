@@ -34,6 +34,8 @@ def index():
     for m in modules:
         data['routes'] += ["/" + m.get('path'),]
     
+    data['routes'].sort()
+    
     res = jsonify(data)
     res.headers['Access-Control-Allow-Origin'] = '*'
     
