@@ -16,7 +16,10 @@
     },
     {
       "type": "foursquare",
-      "path": "foursquare"
+      "path": "foursquare",
+      "data": {
+        "user_id": "72892"
+      }
     },
     {
       "type": "instagram",
@@ -52,6 +55,13 @@
       "path": "github",
       "data": {
         "username": "myles"
+      }
+    },
+    {
+      "type": "flickr",
+      "path": "flickr",
+      "data": {
+        "nsid": "69874063@N00"
       }
     }
   ]
