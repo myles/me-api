@@ -48,7 +48,7 @@ def send_text_file(filename):
 
 
 @app.route('/<string:path>')
-@cache.cached(timeout=60*60*24)
+@cache.cached(timeout=60*60*2) # 2 hours
 def module(path):
     with open(os.path.join(app.data_dir, 'modules.json'), 'r') as f:
         modules = json.loads(f.read())['modules']
