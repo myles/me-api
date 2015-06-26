@@ -11,6 +11,13 @@
       }
     },
     {
+      "type": "feed",
+      "path": "red",
+      "data": {
+        "rss_feed": "http://myles.red/feed.xml"
+      }
+    },
+    {
       "type": "twitter",
       "path": "twitter"
     },
