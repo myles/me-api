@@ -14,7 +14,13 @@ class CustomJSONEncoder(JSONEncoder):
             return datetime.datetime.fromtimestamp(time.mktime(obj))
 
         if isinstance(obj, datetime.date):
-            return obj.strftime("%Y-%m-%d")
+            return obj.isoformat()
+
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
+
+        if isinstance(obj, datetime.time):
+            return obj.isoformat()
 
         if isinstance(obj, instagram_models.ApiModel):
             return obj.__dict__

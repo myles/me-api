@@ -6,8 +6,9 @@ from instagram.client import InstagramAPI
 
 
 def main(app, data):
-    api = InstagramAPI(client_id=environ.get('INSTAGRAM_CLIENT_ID'), client_secret=environ.get(
-        'INSTAGRAM_CLIENT_SECRET'), access_token=environ.get('INSTAGRAM_ACCESS_TOKEN'))
+    api = InstagramAPI(client_id=environ.get('INSTAGRAM_CLIENT_ID'),
+                       client_secret=environ.get('INSTAGRAM_CLIENT_SECRET'),
+                       access_token=environ.get('INSTAGRAM_ACCESS_TOKEN'))
 
     user = api.user().__dict__
 
