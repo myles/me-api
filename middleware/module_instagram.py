@@ -16,15 +16,6 @@ def main(app, data):
     user['media'] = []
 
     for media in recent_media:
-        data = {}
-        data['id'] = media.id
-        data['type'] = media.type
-        data['caption'] = str(media.caption)
-        data['link'] = media.link
-        data['standard_resolution'] = media.get_standard_resolution_url()
-        data['low_resolution'] = media.get_low_resolution_url()
-        data['thumbnail'] = media.get_thumbnail_url()
-
-        user['media'] += [data, ]
+        user['media'] += [media, ]
 
     return user

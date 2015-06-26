@@ -3,6 +3,8 @@ import datetime
 
 from flask.json import JSONEncoder
 
+from instagram import models as instagram_models
+
 
 class CustomJSONEncoder(JSONEncoder):
 
@@ -13,5 +15,8 @@ class CustomJSONEncoder(JSONEncoder):
 
         if isinstance(obj, datetime.date):
             return obj.strftime("%Y-%m-%d")
+
+        if isinstance(obj, instagram_models.ApiModel):
+            return obj.__dict__
 
         return JSONEncoder.default(self, obj)
