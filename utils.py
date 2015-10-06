@@ -1,6 +1,10 @@
 import time
 import datetime
-from urlparse import urlparse, urlunparse
+
+try:
+    from urlparse import urlparse, urlunparse
+except ImportError:
+    from urllib.parse import  urlparse, urlunparse
 
 from flask.json import JSONEncoder
 
