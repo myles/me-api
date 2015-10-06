@@ -2,74 +2,63 @@
   "settings": {
     "host": "127.0.0.1:5000"
   },
-  "modules": [
-    {
-      "type": "feed",
-      "path": "blog",
+  "modules": {
+    "feed": {
+      "path": "/blog",
       "data": {
         "rss_feed": "http://mylesbraithwaite.com/feeds/"
       }
     },
-    {
-      "type": "feed",
-      "path": "red",
+    "feed": {
+      "path": "/red",
       "data": {
         "rss_feed": "http://myles.red/feed.xml"
       }
     },
-    {
-      "type": "twitter",
-      "path": "twitter"
+    "twitter": {
+      "path": "/twitter"
     },
-    {
-      "type": "foursquare",
-      "path": "foursquare",
+    "foursquare": {
+      "path": "/foursquare",
       "data": {
         "user_id": "72892"
       }
     },
-    {
-      "type": "instagram",
-      "path": "instagram"
+    "instagrm": {
+      "path": "/instagram"
     },
-    {
-      "type": "resume",
-      "path": "resume"
+    "resume": {
+      "path": "/resume"
     },
-    {
-      "type": "json",
-      "path": "tumblr",
+    "json": {
+      "path": "/tumblr",
       "data": {
         "api_url": "http://tumblr.mylesbraithwaite.com/api/read/json?debug=1"
       }
     },
-    {
-      "type": "json",
-      "path": "ello",
+    "json": {
+      "path": "/ello",
       "data": {
         "api_url": "https://ello.co/mylesb.json"
       }
     },
-    {
-      "type": "keybase",
-      "path": "keybase",
+    "keybase": {
+      "path": "/keybase",
       "data": {
         "username": "myles"
       }
     },
-    {
-      "type": "github",
-      "path": "github",
+    "github": {
+      "path": "/github",
       "data": {
         "username": "myles"
       }
     },
-    {
-      "type": "flickr",
-      "path": "flickr",
+    "flickr": {
+      "path": "/flickr",
       "data": {
         "nsid": "69874063@N00"
       }
     }
-  ]
+  }
 }

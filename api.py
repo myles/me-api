@@ -2,6 +2,7 @@ import os
 import importlib
 
 from flask import Flask, json, jsonify, abort, request
+
 from flask.ext.cache import Cache
 
 from utils import CustomJSONEncoder
@@ -18,21 +19,22 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 
 @app.route('/')
+@cache.cached(timeout=60 * 60 * 1)  # 1 hours
 def index():
     data = {}
 
     with open(os.path.join(app.data_dir, 'me.json'), 'r') as f:
         data['me'] = json.loads(f.read())
 
-    with open(os.path.join(app.data_dir, 'modules.json'), 'r') as f:
-        settings = json.loads(f.read())
+    with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
+        config = json.loads(f.read())
 
-    modules = settings.get('modules', None)
+    modules = config.get('modules', None)
 
     data['routes'] = []
 
-    for m in modules:
-        data['routes'] += ["/" + m.get('path'), ]
+    for key, value in modules.items():
+        data['routes'] += [value.get('path'), ]
 
     data['routes'].sort()
 
@@ -50,21 +52,23 @@ def send_text_file():
 @app.route('/<string:path>')
 @cache.cached(timeout=60 * 60 * 2)  # 2 hours
 def module(path):
-    with open(os.path.join(app.data_dir, 'modules.json'), 'r') as f:
+    with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
         modules = json.loads(f.read())['modules']
 
-    module = None
+    module_type = None
+    module_data = None
 
-    for i, dic in enumerate(modules):
-        if dic['path'] == path:
-            module = modules[i]
+    for key, value in modules.items():
+        if value['path'].lstrip('/') == path:
+            module_type = key
+            module_data = value
 
     if not module:
         abort(404)
 
-    middleware = importlib.import_module("middleware.module_" + module['type'])
+    middleware = importlib.import_module("middleware.module_" + module_type)
 
-    data = middleware.main(app, module.get('data', {}))
+    data = middleware.main(app, module_data.get('data', {}))
 
     res = jsonify(data)
     res.headers['Access-Control-Allow-Origin'] = '*'
