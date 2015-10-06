@@ -1,5 +1,6 @@
 import time
 import datetime
+from urlparse import urlparse, urlunparse
 
 from flask.json import JSONEncoder
 
@@ -26,3 +27,13 @@ class CustomJSONEncoder(JSONEncoder):
             return obj.__dict__
 
         return JSONEncoder.default(self, obj)
+
+
+def remove_utm(url):
+    parsed_url = list(urlparse(url))
+    parsed_url[4] = '&'.join(
+        [x for x in parsed_url[4].split('&') if not x.startswith('utm_')]
+    )
+    utmless_url = urlunparse(parsed_url)
+
+    return utmless_url

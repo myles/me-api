@@ -15,6 +15,12 @@
         "rss_feed": "http://myles.red/feed.xml"
       }
     },
+    "feed": {
+      "path": "/youaretheworst",
+      "data": {
+        "rss_feed": "http://youaretheworst.today/feed.xml"
+      }
+    },
     "twitter": {
       "path": "/twitter"
     },
