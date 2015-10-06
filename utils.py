@@ -4,7 +4,7 @@ import datetime
 try:
     from urlparse import urlparse, urlunparse
 except ImportError:
-    from urllib.parse import  urlparse, urlunparse
+    from urllib.parse import urlparse, urlunparse
 
 from flask.json import JSONEncoder
 
