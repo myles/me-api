@@ -1,2 +1,2 @@
-include = "{$include,.env,.travis.yml}"
+include = "{$include,.env,.travis.yml,.appveyor.yml}"
 exclude = "{$exclude,*.gpg}"
