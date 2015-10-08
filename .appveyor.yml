@@ -13,5 +13,4 @@ install:
   - "%PYTHON%/Scripts/pip.exe install pep8"
 test_script:
   - "%PYTHON%/Scripts/pip.exe --version"
-  - "%PYTHON%/Scripts/http.exe --debug"
   - "%PYTHON%/python.exe tests.py"
