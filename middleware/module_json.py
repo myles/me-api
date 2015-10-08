@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
 
-from urlparse import urljoin
-
 import requests
 
 

@@ -48,6 +48,12 @@
         "api_url": "https://ello.co/mylesb.json"
       }
     },
+    "json": {
+      "path": "/gnusocial",
+      "data": {
+        "api_url": "http://social.gtalug.org/api/statuses/user_timeline/1.json"
+      }
+    },
     "keybase": {
       "path": "/keybase",
       "data": {

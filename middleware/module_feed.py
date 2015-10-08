@@ -4,6 +4,6 @@ from redcache import default_cache
 
 
 def main(app, data):
-    feed = feedparser.parse(data['rss_feed'])
+    feed = feedparser.parse(data.get('rss_feed'))
 
     return feed
