@@ -55,8 +55,8 @@ def module(path):
     with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
         modules = json.loads(f.read())['modules']
 
-    module_type = None
-    module_data = None
+    module_type = ''
+    module_data = ''
 
     for key, value in modules.items():
         if value['path'].lstrip('/') == path:
@@ -66,7 +66,11 @@ def module(path):
     if not module:
         abort(404)
 
-    middleware = importlib.import_module("middleware.module_" + module_type)
+    try:
+        middleware = importlib.import_module("middleware.module_" +
+                                             module_type)
+    except ImportError:
+        abort(404)
 
     data = middleware.main(app, module_data.get('data', {}))
 
