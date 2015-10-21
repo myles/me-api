@@ -4,9 +4,11 @@ python:
 install:
 - pip install -r requirements.txt
 - pip install pep8
+- pip install demjson
 script:
 - python tests.py
 - pep8 .
+- jsonlint -s data/*.json
 deploy:
   provider: heroku
   api_key:
