@@ -16,7 +16,7 @@ def local(app, data):
 
 
 def remote(app, data):
-    r = requests.get(data.get('api_url'))
+    r = requests.get(data.get('url'))
 
     return r.json()
 

@@ -3,83 +3,83 @@
     "host": "127.0.0.1:5000"
   },
   "modules": {
-    "feed": {
-      "path": "/websites/blog",
+    "/websites/blog": {
+      "module": "feed",
       "data": {
         "rss_feed": "http://mylesbraithwaite.com/feeds/"
       }
     },
-    "feed": {
-      "path": "/websites/lab",
+    "/websites/lab": {
+      "module": "feed",
       "data": {
         "rss_feed": "http://mylesbraithwaite.org/feed.xml"
       }
     },
-    "feed": {
-      "path": "/websites/red",
+    "/websites/red": {
+      "module": "feed",
       "data": {
         "rss_feed": "http://myles.red/feed.xml"
       }
     },
-    "feed": {
-      "path": "/websites/youaretheworst",
+    "/websites/youaretheworst": {
+      "module": "feed",
       "data": {
         "rss_feed": "http://youaretheworst.today/feed.xml"
       }
     },
-    "twitter": {
-      "path": "/twitter"
+    "/twitter": {
+      "module": "twitter"
     },
-    "foursquare": {
-      "path": "/foursquare",
+    "/foursquare": {
+      "module": "foursquare",
       "data": {
         "user_id": "72892"
       }
     },
-    "instagrm": {
-      "path": "/instagram"
+    "/instagrm": {
+      "module": "instagram"
     },
-    "resume": {
-      "path": "/resume"
+    "/resume": {
+      "module": "resume"
     },
-    "json": {
-      "path": "/tumblr",
+    "/tumblr": {
+      "module": "json",
       "data": {
         "url": "http://tumblr.mylesbraithwaite.com/api/read/json?debug=1"
       }
     },
-    "json": {
-      "path": "/ello",
+    "/ello": {
+      "module": "json",
       "data": {
         "url": "https://ello.co/mylesb.json"
       }
     },
-    "json": {
-      "path": "/gnusocial",
+    "/gnusocial": {
+      "module": "json",
       "data": {
         "url": "http://social.gtalug.org/api/statuses/user_timeline/1.json"
       }
     },
-    "keybase": {
-      "path": "/keybase",
+    "/keybase": {
+      "module": "keybase",
       "data": {
         "username": "myles"
       }
     },
-    "github": {
-      "path": "/github",
+    "/github": {
+      "module": "github",
       "data": {
         "username": "myles"
       }
     },
-    "flickr": {
-      "path": "/flickr",
+    "/flickr": {
+      "module": "flickr",
       "data": {
         "nsid": "69874063@N00"
       }
     },
-    "yaml": {
-      "path": "/websites",
+    "/websites": {
+      "module": "yaml",
       "data": {
         "filename": "websites.yaml"
       }

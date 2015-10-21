@@ -39,11 +39,6 @@ class TestUtils(unittest.TestCase):
         json_dump = json.dumps(data, cls=utils.CustomJSONEncoder)
         self.assertEqual(json_dump, '{"datetime.time": "2015-01-01"}')
 
-    def test_custom_json_decoder(self):
-        data = '{"foo": {"baz": 42}, "foo": 7}'
-        json_load = utils.custom_json_decoder.decode(data)
-        self.assertEqual(json_load, [('foo', [('baz', 42)]), ('foo', 7)])
-
 
 if __name__ == "__main__":
     unittest.main()

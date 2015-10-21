@@ -5,7 +5,7 @@ from flask import Flask, json, jsonify, abort, request
 
 from flask.ext.cache import Cache
 
-from utils import CustomJSONEncoder, custom_json_decoder
+from utils import CustomJSONEncoder
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -27,14 +27,12 @@ def index():
         data['me'] = json.loads(f.read())
 
     with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
-        config = custom_json_decoder.decode(f.read())
-
-    modules = dict(config)['modules']
+        config = json.loads(f.read())
 
     data['routes'] = []
 
-    for key, value in modules:
-        data['routes'] += [dict(value).get('path'), ]
+    for route in config.get('modules').keys():
+        data['routes'] += [route, ]
 
     data['routes'].sort()
 
@@ -53,29 +51,20 @@ def send_text_file():
 @cache.cached(timeout=60 * 60 * 2)  # 2 hours
 def module(path):
     with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
-        config = custom_json_decoder.decode(f.read())
+        config = json.loads(f.read())
 
-    modules = dict(config)['modules']
-
-    module_type = ''
-    module_data = ''
-
-    for key, _value in modules:
-        value = dict(_value)
-        if value['path'].lstrip('/') == path:
-            module_type = key
-            module_data = value
+    module = config.get('modules').get("/%s" % path)
 
     if not module:
         abort(404)
 
     try:
         middleware = importlib.import_module("middleware.module_" +
-                                             module_type)
+                                             module.get('module'))
     except ImportError:
         abort(404)
 
-    data = middleware.main(app, dict(module_data.get('data', [])))
+    data = middleware.main(app, module.get('data', {}))
 
     res = jsonify(data)
     res.headers['Access-Control-Allow-Origin'] = '*'
