@@ -6,9 +6,16 @@ try:
 except ImportError:
     from urllib.parse import urlparse, urlunparse
 
-from flask.json import JSONEncoder
+from flask.json import JSONEncoder, JSONDecoder
 
 from instagram import models as instagram_models
+
+
+def parse_object_pairs(pairs):
+    return pairs
+
+
+custom_json_decoder = JSONDecoder(object_pairs_hook=parse_object_pairs)
 
 
 class CustomJSONEncoder(JSONEncoder):

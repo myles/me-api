@@ -5,7 +5,7 @@ from flask import Flask, json, jsonify, abort, request
 
 from flask.ext.cache import Cache
 
-from utils import CustomJSONEncoder
+from utils import CustomJSONEncoder, custom_json_decoder
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -27,14 +27,14 @@ def index():
         data['me'] = json.loads(f.read())
 
     with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
-        config = json.loads(f.read())
+        config = custom_json_decoder.decode(f.read())
 
-    modules = config.get('modules', None)
+    modules = dict(config)['modules']
 
     data['routes'] = []
 
-    for key, value in modules.items():
-        data['routes'] += [value.get('path'), ]
+    for key, value in modules:
+        data['routes'] += [dict(value).get('path'), ]
 
     data['routes'].sort()
 
@@ -49,16 +49,18 @@ def send_text_file():
     return app.send_static_file(request.path[1:])
 
 
-@app.route('/<string:path>')
+@app.route('/<path:path>')
 @cache.cached(timeout=60 * 60 * 2)  # 2 hours
 def module(path):
     with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
-        modules = json.loads(f.read())['modules']
+        config = custom_json_decoder.decode(f.read())
+        modules = dict(config)['modules']
 
     module_type = ''
     module_data = ''
 
-    for key, value in modules.items():
+    for key, _value in modules:
+        value = dict(_value)
         if value['path'].lstrip('/') == path:
             module_type = key
             module_data = value
@@ -72,7 +74,7 @@ def module(path):
     except ImportError:
         abort(404)
 
-    data = middleware.main(app, module_data.get('data', {}))
+    data = middleware.main(app, dict(module_data.get('data', [])))
 
     res = jsonify(data)
     res.headers['Access-Control-Allow-Origin'] = '*'
