@@ -39,19 +39,19 @@
     "json": {
       "path": "/tumblr",
       "data": {
-        "api_url": "http://tumblr.mylesbraithwaite.com/api/read/json?debug=1"
+        "url": "http://tumblr.mylesbraithwaite.com/api/read/json?debug=1"
       }
     },
     "json": {
       "path": "/ello",
       "data": {
-        "api_url": "https://ello.co/mylesb.json"
+        "url": "https://ello.co/mylesb.json"
       }
     },
     "json": {
       "path": "/gnusocial",
       "data": {
-        "api_url": "http://social.gtalug.org/api/statuses/user_timeline/1.json"
+        "url": "http://social.gtalug.org/api/statuses/user_timeline/1.json"
       }
     },
     "keybase": {
