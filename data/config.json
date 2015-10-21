@@ -4,19 +4,19 @@
   },
   "modules": {
     "feed": {
-      "path": "/blog",
+      "path": "/websites/blog",
       "data": {
         "rss_feed": "http://mylesbraithwaite.com/feeds/"
       }
     },
     "feed": {
-      "path": "/red",
+      "path": "/websites/red",
       "data": {
         "rss_feed": "http://myles.red/feed.xml"
       }
     },
     "feed": {
-      "path": "/youaretheworst",
+      "path": "/websites/youaretheworst",
       "data": {
         "rss_feed": "http://youaretheworst.today/feed.xml"
       }
