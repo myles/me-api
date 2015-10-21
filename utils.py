@@ -6,7 +6,10 @@ try:
 except ImportError:
     from urllib.parse import urlparse, urlunparse
 
+import yaml
+
 from flask.json import JSONEncoder
+from flask.globals import current_app, request
 
 from instagram import models as instagram_models
 
@@ -41,3 +44,13 @@ def remove_utm(url):
     utmless_url = urlunparse(parsed_url)
 
     return utmless_url
+
+
+def yamlify(*args, **kwargs):
+    rv = current_app.response_class(
+            yaml.safe_dump(
+                dict(*args, **kwargs), line_break='\n',
+                default_flow_style=False),
+            mimetype="application/x-yaml")
+
+    return rv

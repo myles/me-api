@@ -1,11 +1,13 @@
 import os
 import importlib
 
+import yaml
+
 from flask import Flask, json, jsonify, abort, request
 
 from flask.ext.cache import Cache
 
-from utils import CustomJSONEncoder
+from utils import CustomJSONEncoder, yamlify
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -36,7 +38,11 @@ def index():
 
     data['routes'].sort()
 
-    res = jsonify(data)
+    if request.args.get('format') == 'yaml':
+        res = yamlify(data)
+    else:
+        res = jsonify(data)
+
     res.headers['Access-Control-Allow-Origin'] = '*'
 
     return res
@@ -66,7 +72,11 @@ def module(path):
 
     data = middleware.main(app, module.get('data', {}))
 
-    res = jsonify(data)
+    if request.args.get('format') == 'yaml':
+        res = yamlify(data)
+    else:
+        res = jsonify(data)
+
     res.headers['Access-Control-Allow-Origin'] = '*'
 
     return res
