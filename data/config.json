@@ -72,15 +72,10 @@
         "nsid": "69874063@N00"
       }
     },
-    "data": {
+    "yaml": {
       "path": "/websites",
       "data": {
-        "websites": [
-          {
-            "name": "Homepage",
-            "url": "http://mylesbraithwaite.com/"
-          }
-        ]
+        "filename": "websites.yaml"
       }
     }
   }
