@@ -54,7 +54,8 @@ def send_text_file():
 def module(path):
     with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
         config = custom_json_decoder.decode(f.read())
-        modules = dict(config)['modules']
+
+    modules = dict(config)['modules']
 
     module_type = ''
     module_data = ''
