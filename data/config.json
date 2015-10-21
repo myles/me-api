@@ -10,6 +10,12 @@
       }
     },
     "feed": {
+      "path": "/websites/lab",
+      "data": {
+        "rss_feed": "http://mylesbraithwaite.org/feed.xml"
+      }
+    }
+    "feed": {
       "path": "/websites/red",
       "data": {
         "rss_feed": "http://myles.red/feed.xml"

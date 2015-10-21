@@ -12,6 +12,7 @@ websites:
     api: "/websites/red"
   - name: "Myles' Lab"
     url: "http://mylesbraithwaite.org/"
+    api: "/websites/lab"
     logomark: "http://cdn.mylesbraithwaite.org/assets/logomark.svg"
     logotype: "http://cdn.mylesbraithwaite.org/assets/logotype.svg"
   - name: "Myles.Coffee"
