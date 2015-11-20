@@ -1,15 +1,21 @@
-import os
-import importlib
+#!/usr/bin/python
 
-import yaml
+import os
+from importlib import import_module
 
 from flask import Flask, json, jsonify, abort, request
 
 from flask.ext.cache import Cache
+from flask_ripozo import FlaskDispatcher
 
-from utils import CustomJSONEncoder, yamlify
+from ripozo import apimethod, ResourceBase
+
+from utils import CustomJSONEncoder, JSONRipozoAdapter
 
 app = Flask(__name__, instance_relative_config=True)
+
+dispatcher = FlaskDispatcher(app, url_prefix='/v1')
+dispatcher.register_adapters(JSONRipozoAdapter)
 
 app.root_dir = os.path.dirname(os.path.abspath(__file__))
 app.data_dir = os.path.join(app.root_dir, 'data')
@@ -20,35 +26,79 @@ app.static_url_path = os.path.join(app.root_dir, 'templates')
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 
-def get_config(filename):
+def get_json_file(filename):
     with open(os.path.join(app.data_dir, filename), 'r') as f:
         return json.loads(f.read())
 
 
-@app.route('/')
-@cache.cached(timeout=60 * 60 * 1)  # 1 hours
-def index():
-    data = {}
+class IndexViewSet(ResourceBase):
+    resource_name = ''
 
-    data['me'] = get_config('me.json')
+    @apimethod(methods=['GET'])
+    def index(cls, request, *args, **kwargs):
+        data = {}
 
-    config = get_config('config.json')
+        data['me'] = get_json_file('me.json')
 
-    data['routes'] = []
+        config = get_json_file('config.json')
 
-    for route in config.get('modules').keys():
-        data['routes'] += [route, ]
+        data['routes'] = []
 
-    data['routes'].sort()
+        for route in config.get('modules').keys():
+            data['routes'] += ["{0}/{1}/".format(dispatcher.url_prefix, route)]
 
-    if request.args.get('format') == 'yaml':
-        res = yamlify(data)
-    else:
-        res = jsonify(data)
+        data['routes'].sort()
 
-    res.headers['Access-Control-Allow-Origin'] = '*'
+        return cls(properties=data)
 
-    return res
+
+class ModuleViewSet(ResourceBase):
+    resource_name = ''
+    pks = ('module_name',)
+
+    @apimethod(methods=['GET'])
+    def view(cls, request, *args, **kwargs):
+        config = get_json_file('config.json')
+
+        module_name = request.get('module_name')
+        module_config = config.get('modules').get(module_name)
+
+        try:
+            middleware = import_module("middleware.module_" +
+                                       module_config.get('module'))
+        except ImportError:
+            abort(404)
+
+        data = middleware.main(app, module_config.get('data', {}))
+
+        return cls(properties=data)
+
+
+class SubModuleViewSet(ResourceBase):
+    resource_name = ''
+    pks = ('module_name', 'sub_module_name')
+
+    @apimethod(methods=['GET'])
+    def view(cls, request, *args, **kwargs):
+        config = get_json_file('config.json')
+
+        module_name = request.get('module_name')
+        sub_module_name = request.get('sub_module_name')
+
+        module_config = config.get('modules').get(module_name)
+        module_children = module_config.get('children')
+
+        sub_module_confg = module_children.get(sub_module_name)
+
+        try:
+            middleware = import_module("middleware.module_" +
+                                       sub_module_confg.get('module'))
+        except ImportError:
+            abort(404)
+
+        data = middleware.main(app, module_config.get('data', {}))
+
+        return cls(properties=data)
 
 
 @app.route('/robots.txt')
@@ -56,40 +106,15 @@ def send_text_file():
     return app.send_static_file(request.path[1:])
 
 
-@app.route('/<path:path>')
-@cache.cached(timeout=60 * 60 * 2)  # 2 hours
-def module(path):
-    config = get_config('config.json')
-
-    module = config.get('modules').get("/%s" % path)
-
-    if not module:
-        abort(404)
-
-    try:
-        middleware = importlib.import_module("middleware.module_" +
-                                             module.get('module'))
-    except ImportError:
-        abort(404)
-
-    data = middleware.main(app, module.get('data', {}))
-
-    if request.args.get('format') == 'yaml':
-        res = yamlify(data)
-    else:
-        res = jsonify(data)
-
-    res.headers['Access-Control-Allow-Origin'] = '*'
-
-    return res
-
-
 @app.errorhandler(404)
 def page_not_found(error):
-    res = jsonify(status=404, error='not_found')
+    res = jsonify(status=404, error=error.description)
     res.headers['Access-Control-Allow-Origin'] = '*'
 
     return res, 404
+
+
+dispatcher.register_resources(IndexViewSet, ModuleViewSet, SubModuleViewSet)
 
 
 if __name__ == "__main__":
