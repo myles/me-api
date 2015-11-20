@@ -47,6 +47,9 @@ Update the `README.md` file status images to point to the master branch and incr
 
 When you are finished, finish and sigh the release branch:
 
-	$ git flow release finish <version>
+	$ git flow release finish -s <version>
 
-Then just push the master branch and Travis CI will take care of the rest.
+Then just push the master branch and Travis CI will take care of the rest:
+
+	$ git push origin master
+	$ git push --tags
