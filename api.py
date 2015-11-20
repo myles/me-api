@@ -61,6 +61,7 @@ class ModuleViewSet(ResourceBase):
         config = get_json_file('config.json')
 
         module_name = request.get('module_name')
+        module_config = config.get('modules').get(module_name)
 
         try:
             middleware = import_module("middleware.module_" +
