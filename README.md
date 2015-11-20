@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/myles/me-api.svg?branch=develop)](https://travis-ci.org/myles/me-api) [![Build status](https://ci.appveyor.com/api/projects/status/1csgiwudvkikblh2?svg=true)](https://ci.appveyor.com/api/projects/status/1csgiwudvkikblh2/branch/develop?svg=true) [![Requirements Status](https://requires.io/github/myles/me-api/requirements.svg?branch=develop)](https://requires.io/github/myles/me-api/requirements/?branch=develop)
+[![Build Status](https://travis-ci.org/myles/me-api.svg?branch=master)](https://travis-ci.org/myles/me-api) [![Build status](https://ci.appveyor.com/api/projects/status/1csgiwudvkikblh2?svg=true)](https://ci.appveyor.com/api/projects/status/1csgiwudvkikblh2/branch/master?svg=true) [![Requirements Status](https://requires.io/github/myles/me-api/requirements.svg?branch=master)](https://requires.io/github/myles/me-api/requirements/?branch=master)
 
 # me-api
 

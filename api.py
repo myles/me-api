@@ -25,6 +25,8 @@ app.static_url_path = os.path.join(app.root_dir, 'templates')
 
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
+__version__ = '1.0.1'
+
 
 def get_json_file(filename):
     with open(os.path.join(app.data_dir, filename), 'r') as f:
