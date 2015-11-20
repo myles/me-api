@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import os
-import importlib
+from importlib import import_module
 
 from flask import Flask, json, jsonify, abort, request
 
@@ -26,6 +26,11 @@ app.static_url_path = os.path.join(app.root_dir, 'templates')
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 
+def get_json_file(filename):
+    with open(os.path.join(app.data_dir, filename), 'r') as f:
+        return json.loads(f.read())
+
+
 class IndexViewSet(ResourceBase):
     resource_name = ''
 
@@ -33,11 +38,9 @@ class IndexViewSet(ResourceBase):
     def index(cls, request, *args, **kwargs):
         data = {}
 
-        with open(os.path.join(app.data_dir, 'me.json'), 'r') as f:
-            data['me'] = json.loads(f.read())
+        data['me'] = get_json_file('me.json')
 
-        with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
-            config = json.loads(f.read())
+        config = get_json_file('config.json')
 
         data['routes'] = []
 
@@ -55,16 +58,13 @@ class ModuleViewSet(ResourceBase):
 
     @apimethod(methods=['GET'])
     def view(cls, request, *args, **kwargs):
-        with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
-            config = json.loads(f.read())
+        config = get_json_file('config.json')
 
         module_name = request.get('module_name')
 
-        module_config = config.get('modules').get(module_name)
-
         try:
-            middleware = importlib.import_module("middleware.module_" +
-                                                 module_config.get('module'))
+            middleware = import_module("middleware.module_" +
+                                       module_config.get('module'))
         except ImportError:
             abort(404)
 
@@ -76,23 +76,22 @@ class ModuleViewSet(ResourceBase):
 class SubModuleViewSet(ResourceBase):
     resource_name = ''
     pks = ('module_name', 'sub_module_name')
-    
+
     @apimethod(methods=['GET'])
     def view(cls, request, *args, **kwargs):
-        with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
-            config = json.loads(f.read())
-        
+        config = get_json_file('config.json')
+
         module_name = request.get('module_name')
         sub_module_name = request.get('sub_module_name')
-        
+
         module_config = config.get('modules').get(module_name)
         module_children = module_config.get('children')
-        
+
         sub_module_confg = module_children.get(sub_module_name)
-        
+
         try:
-            middleware = importlib.import_module("middleware.module_" +
-                                                 sub_module_confg.get('module'))
+            middleware = import_module("middleware.module_" +
+                                       sub_module_confg.get('module'))
         except ImportError:
             abort(404)
 
