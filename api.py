@@ -45,7 +45,7 @@ class IndexViewSet(ResourceBase):
         data['routes'] = []
 
         for route in config.get('modules').keys():
-            data['routes'] += ["%s/%s/" % (dispatcher.url_prefix, route)]
+            data['routes'] += ["{0}/{1}/".format(dispatcher.url_prefix, route)]
 
         data['routes'].sort()
 
