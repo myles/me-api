@@ -20,16 +20,19 @@ app.static_url_path = os.path.join(app.root_dir, 'templates')
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 
+def get_config(filename):
+    with open(os.path.join(app.data_dir, filename), 'r') as f:
+        return json.loads(f.read())
+
+
 @app.route('/')
 @cache.cached(timeout=60 * 60 * 1)  # 1 hours
 def index():
     data = {}
 
-    with open(os.path.join(app.data_dir, 'me.json'), 'r') as f:
-        data['me'] = json.loads(f.read())
+    data['me'] = get_config('me.json')
 
-    with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
-        config = json.loads(f.read())
+    config = get_config('config.json')
 
     data['routes'] = []
 
@@ -56,8 +59,7 @@ def send_text_file():
 @app.route('/<path:path>')
 @cache.cached(timeout=60 * 60 * 2)  # 2 hours
 def module(path):
-    with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
-        config = json.loads(f.read())
+    config = get_config('config.json')
 
     module = config.get('modules').get("/%s" % path)
 
