@@ -19,6 +19,7 @@ from flask.globals import current_app, request
 
 from ripozo.adapters import AdapterBase
 
+from feedparser import FeedParserDict
 from instagram import models as instagram_models
 
 
@@ -39,6 +40,9 @@ class CustomJSONEncoder(JSONEncoder):
             return obj.isoformat()
 
         if isinstance(obj, instagram_models.ApiModel):
+            return obj.__dict__
+
+        if isinstance(obj, FeedParserDict):
             return obj.__dict__
 
         return JSONEncoder.default(self, obj)

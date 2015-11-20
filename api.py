@@ -96,7 +96,7 @@ class SubModuleViewSet(ResourceBase):
         except ImportError:
             abort(404)
 
-        data = middleware.main(app, module_config.get('data', {}))
+        data = middleware.main(app, sub_module_confg.get('data', {}))
 
         return cls(properties=data)
 
