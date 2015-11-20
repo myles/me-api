@@ -108,7 +108,6 @@ def send_text_file():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    print type(error)
     res = jsonify(status=404, error=error.description)
     res.headers['Access-Control-Allow-Origin'] = '*'
 
