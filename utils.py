@@ -14,6 +14,7 @@ except ImportError:
     from urllib.parse import urlparse, urlunparse
 
 from flask import json
+from flask.json import JSONEncoder
 from flask.globals import current_app, request
 
 from ripozo.adapters import AdapterBase
@@ -21,7 +22,7 @@ from ripozo.adapters import AdapterBase
 from instagram import models as instagram_models
 
 
-class CustomJSONEncoder(json.JSONEncoder):
+class CustomJSONEncoder(JSONEncoder):
 
     def default(self, obj):
 

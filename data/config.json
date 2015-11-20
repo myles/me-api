@@ -3,85 +3,87 @@
     "host": "127.0.0.1:5000"
   },
   "modules": {
-    "/websites/blog": {
-      "module": "feed",
-      "data": {
-        "rss_feed": "http://mylesbraithwaite.com/feeds/"
-      }
-    },
-    "/websites/lab": {
-      "module": "feed",
-      "data": {
-        "rss_feed": "http://mylesbraithwaite.org/feed.xml"
-      }
-    },
-    "/websites/red": {
-      "module": "feed",
-      "data": {
-        "rss_feed": "http://myles.red/feed.xml"
-      }
-    },
-    "/websites/youaretheworst": {
-      "module": "feed",
-      "data": {
-        "rss_feed": "http://youaretheworst.today/feed.xml"
-      }
-    },
-    "/twitter": {
+    "twitter": {
       "module": "twitter"
     },
-    "/foursquare": {
+    "foursquare": {
       "module": "foursquare",
       "data": {
         "user_id": "72892"
       }
     },
-    "/instagrm": {
+    "instagrm": {
       "module": "instagram"
     },
-    "/resume": {
+    "resume": {
       "module": "resume"
     },
-    "/tumblr": {
+    "tumblr": {
       "module": "json",
       "data": {
         "url": "http://tumblr.mylesbraithwaite.com/api/read/json?debug=1"
       }
     },
-    "/ello": {
+    "ello": {
       "module": "json",
       "data": {
         "url": "https://ello.co/mylesb.json"
       }
     },
-    "/gnusocial": {
+    "gnusocial": {
       "module": "json",
       "data": {
         "url": "http://social.gtalug.org/api/statuses/user_timeline/1.json"
       }
     },
-    "/keybase": {
+    "keybase": {
       "module": "keybase",
       "data": {
         "username": "myles"
       }
     },
-    "/github": {
+    "github": {
       "module": "github",
       "data": {
         "username": "myles"
       }
     },
-    "/flickr": {
+    "flickr": {
       "module": "flickr",
       "data": {
         "nsid": "69874063@N00"
       }
     },
-    "/websites": {
+    "websites": {
       "module": "yaml",
       "data": {
         "filename": "websites.yaml"
+      },
+      "children": {
+        "blog": {
+          "module": "feed",
+          "data": {
+            "rss_feed": "http://mylesbraithwaite.com/feeds/"
+          }
+        },
+        "lab": {
+          "module": "feed",
+          "data": {
+            "rss_feed": "http://mylesbraithwaite.org/feed.xml"
+          }
+        },
+        "red": {
+          "module": "feed",
+          "data": {
+            "rss_feed": "http://myles.red/feed.xml"
+          }
+        },
+        "youaretheworst": {
+          "module": "feed",
+          "data": {
+            "rss_feed": "http://youaretheworst.today/feed.xml"
+          }
+        }
       }
     }
   }

@@ -42,7 +42,7 @@ class IndexViewSet(ResourceBase):
         data['routes'] = []
 
         for route in config.get('modules').keys():
-            data['routes'] += [dispatcher.url_prefix + route, ]
+            data['routes'] += ["%s/%s/" % (dispatcher.url_prefix, route)]
 
         data['routes'].sort()
 
@@ -60,11 +60,39 @@ class ModuleViewSet(ResourceBase):
 
         module_name = request.get('module_name')
 
-        module_config = config.get('modules').get("/" + module_name)
+        module_config = config.get('modules').get(module_name)
 
         try:
             middleware = importlib.import_module("middleware.module_" +
                                                  module_config.get('module'))
+        except ImportError:
+            abort(404)
+
+        data = middleware.main(app, module_config.get('data', {}))
+
+        return cls(properties=data)
+
+
+class SubModuleViewSet(ResourceBase):
+    resource_name = ''
+    pks = ('module_name', 'sub_module_name')
+    
+    @apimethod(methods=['GET'])
+    def view(cls, request, *args, **kwargs):
+        with open(os.path.join(app.data_dir, 'config.json'), 'r') as f:
+            config = json.loads(f.read())
+        
+        module_name = request.get('module_name')
+        sub_module_name = request.get('sub_module_name')
+        
+        module_config = config.get('modules').get(module_name)
+        module_children = module_config.get('children')
+        
+        sub_module_confg = module_children.get(sub_module_name)
+        
+        try:
+            middleware = importlib.import_module("middleware.module_" +
+                                                 sub_module_confg.get('module'))
         except ImportError:
             abort(404)
 
@@ -80,12 +108,15 @@ def send_text_file():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    res = jsonify(status=404, error='not_found')
+    print type(error)
+    res = jsonify(status=404, error=error.description)
     res.headers['Access-Control-Allow-Origin'] = '*'
 
     return res, 404
 
-dispatcher.register_resources(IndexViewSet, ModuleViewSet)
+
+dispatcher.register_resources(IndexViewSet, ModuleViewSet, SubModuleViewSet)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
