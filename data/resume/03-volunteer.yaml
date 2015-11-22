@@ -9,3 +9,11 @@
     - "Speaker Coordinator"
     - "Event Coordinator"
     - "Social Media"
+- organization: "PyCon Canada 2015"
+  position: "Volunteer & Organizer"
+  website: http://2015.pycon.ca/
+  startDate: 2015-06-01
+  endDate: 2015-11-30
+  summary: "Worked on the web site and helped organize the event."
+  highlights:
+    - "Web Site Development"
