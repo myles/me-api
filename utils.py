@@ -15,7 +15,6 @@ except ImportError:
 
 from flask import json
 from flask.json import JSONEncoder
-from flask.globals import current_app, request
 
 from ripozo.adapters import AdapterBase
 
@@ -102,7 +101,7 @@ class JSONRipozoAdapter(AdapterBase):
         self._append_relationships_to_list(response,
                                            self.resource.linked_resources)
         response.update(parent_properties)
-        return json.dumps({self.resource.resource_name: response})
+        return json.dumps(response)
 
     @staticmethod
     def _append_relationships_to_list(rel_dict, relationships):
