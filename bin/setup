@@ -1,0 +1,5 @@
+#!/bin/sh
+set -euo pipefail
+IFS=$'\n\t'
+
+pip install -r requirements.txt
