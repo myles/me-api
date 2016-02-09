@@ -1,0 +1,48 @@
+{
+  "name": "me-api",
+  "description": "",
+  "scripts": {
+    "postdeploy": "bin/setup"
+  },
+  "env": {
+    "FLICKR_KEY": {
+      "required": true
+    },
+    "FLICKR_SECRET": {
+      "required": true
+    },
+    "FOURSQUARE_ACCESS_TOKEN": {
+      "required": true
+    },
+    "FOURSQUARE_CLIENT_ID": {
+      "required": true
+    },
+    "FOURSQUARE_CLIENT_SECRET": {
+      "required": true
+    },
+    "INSTAGRAM_ACCESS_TOKEN": {
+      "required": true
+    },
+    "INSTAGRAM_CLIENT_ID": {
+      "required": true
+    },
+    "INSTAGRAM_CLIENT_SECRET": {
+      "required": true
+    },
+    "TWITTER_ACCESS_TOKEN": {
+      "required": true
+    },
+    "TWITTER_ACCESS_TOKEN_SECRET": {
+      "required": true
+    },
+    "TWITTER_CONSUMER_KEY": {
+      "required": true
+    },
+    "TWITTER_CONSUMER_SECRET": {
+      "required": true
+    }
+  },
+  "addons": [
+
+  ]
+}
