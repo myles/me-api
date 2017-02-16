@@ -9,8 +9,9 @@ except ImportError:
 
 
 def main(app, data):
-    r = requests.get(
-        'https://medium.com/{0}?format=json'.format(data.get('username')))
+    MEDIUM_API_ENDPOINT = 'https://medium.com/{0}/latest?format=json'
+
+    r = requests.get(MEDIUM_API_ENDPOINT.format(data.get('username')))
 
     response_content = r.content.decode('utf-8')
 
