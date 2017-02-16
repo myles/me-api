@@ -30,7 +30,7 @@ opbeat = Opbeat(app, organization_id=os.environ.get('OPBEAT_ORG_ID'),
                 app_id=os.environ.get('OPBEAT_APP_ID'),
                 secret_token=os.environ.get('OPBEAT_SECRET'))
 
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 
 
 def get_json_file(filename):
