@@ -3,12 +3,13 @@
 import os
 from importlib import import_module
 
+from ripozo import apimethod, ResourceBase
+from opbeat.contrib.flask import Opbeat
+
 from flask import Flask, json, jsonify, abort, request
 
 from flask.ext.cache import Cache
 from flask_ripozo import FlaskDispatcher
-
-from ripozo import apimethod, ResourceBase
 
 from utils import CustomJSONEncoder, JSONRipozoAdapter
 
@@ -24,6 +25,10 @@ app.json_encoder = CustomJSONEncoder
 app.static_url_path = os.path.join(app.root_dir, 'templates')
 
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+
+opbeat = Opbeat(app, organization_id=os.environ.get('OPBEAT_ORG_ID'),
+                app_id=os.environ.get('OPBEAT_APP_ID'),
+                secret_token=os.environ.get('OPBEAT_SECRET'))
 
 __version__ = '1.0.2'
 
