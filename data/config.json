@@ -89,6 +89,12 @@
           "data": {
             "rss_feed": "http://youaretheworst.today/feed.xml"
           }
+        },
+        "lovehate": {
+          "module": "feed",
+          "data": {
+            "rss_feed": "https://ilovemyles.com/rss/"
+          }
         }
       }
     }
