@@ -1,7 +1,7 @@
 blessings==1.6
 blinker==1.4
 bpython==0.14.2
-certifi==2017.1.23
+certifi==2022.12.7
 click==6.2
 curtsies==0.2.6
 demjson==2.2.4
